@@ -137,6 +137,13 @@ class project_user_stories(models.Model):
     _description = 'Project Scrum Use Stories'
     _order = 'sequence'
 
+    STATES = [
+        ('backlog', 'Backlog'),
+        ('todo', 'To Do'),
+        ('doing', 'Done'),
+        ('cancelled', 'Cancelled'),
+    ]
+    state = fields.Selection(STATES, 'state', default='backlog')
     name = fields.Char(string='User Story', required=True)
     color = fields.Integer('Color Index')
     description = fields.Html(string = 'Description')
@@ -153,6 +160,7 @@ class project_user_stories(models.Model):
     test_count = fields.Integer(compute = '_test_count', store=True)
     sequence = fields.Integer('Sequence')
     company_id = fields.Many2one(related='project_id.analytic_account_id.company_id')
+    size = fields.Integer('Size', default=1)
     #has_task = fields.Boolean()
     #has_test = fields.Boolean()
     
