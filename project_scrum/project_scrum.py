@@ -373,7 +373,7 @@ class scrum_meeting(models.Model):
     company_id = fields.Many2one(related='project_id.analytic_account_id.company_id')
 
 
-
+    @api.one
     def _compute_meeting_name(self):
         if self.project_id:
             self.name = "%s - %s - %s" % (self.project_id.name, self.user_id_meeting.name, self.date_meeting)
